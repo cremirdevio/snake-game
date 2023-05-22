@@ -18,9 +18,14 @@ const food = new Food(BOX_SIZE, CANVAS_SIZE)
 // Boundary
 
 function gameLoop() {
+  // check for collision
+  
+
   context.clearRect(0,0, CANVAS_SIZE, CANVAS_SIZE);
-  snake.update(context)
+  snake.update(context, food)
   food.draw(context);
+
+  
 }
 
 // starting the game

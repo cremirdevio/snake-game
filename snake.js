@@ -15,6 +15,7 @@ class Snake {
     }
   
     draw(context) {
+      console.log(`Drawing head at `, this.head.x, this.head.y)
       this.body.map((segment, index) => {
         // fade yellow color
         let opacity = (100/index);
@@ -23,7 +24,7 @@ class Snake {
       })
     }
   
-    move() {
+    move(food) {
       // create a new head
       const newHead = {...this.body[0]} // use spread operator to be sure its a new object
       
@@ -49,16 +50,26 @@ class Snake {
       // Check fit the newHead.y == canvasSize
       if (newHead.y >= this.canvasSize) newHead.y = 0;
       else if (newHead.y < 0) newHead.y = this.canvasSize - this.snakeSize ;
-  
+      // console.log(`Moving head to `, newHead.x, newHead.y)
+
+
       // add the new head
       this.body.unshift(newHead);
-  
-      // remove the tail
-      this.body.pop();
+
+      // IS there collision? 
+      if (this.head.x === food.x && this.head.y === food.y) {
+        console.log('Collision detected at ', this.head.x, this.head.y)
+        food.generateFood();
+      } else {
+        // remove the tail
+        this.body.pop();
+      }
+      
+      
     }
-  
-    update(context) {
-      this.move()
+
+    update(context, food) {
+      this.move(food)
       this.draw(context)
     }
 
@@ -74,6 +85,10 @@ class Snake {
         if ((curDirection == 'up' && newDirection == 'down') || (curDirection == 'down' && newDirection == 'up') ) return true;
 
         return false;
+    }
+
+    get head() {
+      return this.body[0];
     }
   }
   
