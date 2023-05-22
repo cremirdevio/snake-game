@@ -1,13 +1,19 @@
 import Snake from './snake';
 import './style.css'
 
+// Game Manager
+
 // Canvas
 const BOX_SIZE = 20;
 const CANVAS_SIZE = 400
 const canvas = document.getElementById("canvas")
 const context = canvas.getContext('2d')
 
+let gameSpeed = 7; //1-7
+
 const snake = new Snake(BOX_SIZE, CANVAS_SIZE)
+// Apple/Food
+// Boundary
 
 function gameLoop() {
   context.clearRect(0,0, CANVAS_SIZE, CANVAS_SIZE);
@@ -15,7 +21,7 @@ function gameLoop() {
 }
 
 // requestAnimationFrame
-setInterval(gameLoop, 1000);
+setInterval(gameLoop, 700 / gameSpeed);
 
 // Event Listener
 window.addEventListener('keydown', (event) => {
