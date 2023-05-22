@@ -8,8 +8,9 @@ const BOX_SIZE = 20;
 const CANVAS_SIZE = 400
 const canvas = document.getElementById("canvas")
 const context = canvas.getContext('2d')
-
-let gameSpeed = 7; //1-7
+let intervalTimer;
+ 
+let gameSpeed = 1; //1-7
 
 const snake = new Snake(BOX_SIZE, CANVAS_SIZE)
 // Apple/Food
@@ -21,7 +22,7 @@ function gameLoop() {
 }
 
 // requestAnimationFrame
-setInterval(gameLoop, 700 / gameSpeed);
+intervalTimer = setInterval(gameLoop, 700 / gameSpeed);
 
 // Event Listener
 window.addEventListener('keydown', (event) => {
@@ -38,6 +39,14 @@ window.addEventListener('keydown', (event) => {
     case 'ArrowRight':
         snake.updateDirection('right')
         break;
+    case 'Space':
+          if (intervalTimer) {
+            clearInterval(intervalTimer);
+            intervalTimer = undefined;
+          } else {
+            intervalTimer = setInterval(gameLoop, 700 / gameSpeed);
+          } 
+          break;
     default:
       break;
   }

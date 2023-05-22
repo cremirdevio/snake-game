@@ -40,9 +40,15 @@ class Snake {
         case 'down':
               newHead.y += 20;
               break;
-        default:
-          break;
       }
+
+      // Check fit the newHead.x == canvasSize
+      if (newHead.x >= this.canvasSize) newHead.x = 0;
+      else if (newHead.x < 0) newHead.x = this.canvasSize - this.snakeSize ;
+
+      // Check fit the newHead.y == canvasSize
+      if (newHead.y >= this.canvasSize) newHead.y = 0;
+      else if (newHead.y < 0) newHead.y = this.canvasSize - this.snakeSize ;
   
       // add the new head
       this.body.unshift(newHead);
