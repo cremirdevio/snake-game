@@ -1,3 +1,4 @@
+import Food from './food';
 import Snake from './snake';
 import './style.css'
 
@@ -13,15 +14,17 @@ let intervalTimer;
 let gameSpeed = 1; //1-7
 
 const snake = new Snake(BOX_SIZE, CANVAS_SIZE)
-// Apple/Food
+const food = new Food(BOX_SIZE, CANVAS_SIZE)
 // Boundary
 
 function gameLoop() {
   context.clearRect(0,0, CANVAS_SIZE, CANVAS_SIZE);
   snake.update(context)
+  food.draw(context);
 }
 
-// requestAnimationFrame
+// starting the game
+food.generateFood();
 intervalTimer = setInterval(gameLoop, 700 / gameSpeed);
 
 // Event Listener
